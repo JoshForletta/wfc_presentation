@@ -1,0 +1,14 @@
+.slideshowContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#slideshowView {
+    border: solid;
+    border-color: red;
+    aspect-ratio: 16 / 9;
+    width: 90%;
+    border-radius: 1rem;
+    padding: 1rem;
+}
