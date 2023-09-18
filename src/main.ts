@@ -1,5 +1,5 @@
 import './styles/index.scss'
-import { closeFullscreen, openFullscreen } from './fullscreen';
+import { toggleFullscreen } from './fullscreen';
 import { Slideshow } from './slideshow';
 import { introduction } from './scenes/introduction';
 
@@ -13,19 +13,11 @@ app.appendChild(slideshow_view);
 
 let slideshow = new Slideshow(slideshow_view, [introduction]);
 
-let fullscreen = false;
-
 window.onkeydown = (event) => {
     console.log(event.key);
     switch (event.key) {
         case "f": {
-            if (!fullscreen) {
-                openFullscreen(app);
-                fullscreen = true;
-            } else {
-                closeFullscreen();
-                fullscreen = false;
-            }
+            toggleFullscreen(app);
             break;
         }
         case "ArrowRight": {

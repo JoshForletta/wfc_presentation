@@ -7,8 +7,10 @@
 #slideshowView {
     border: solid;
     border-color: red;
+    position: relative;
     aspect-ratio: 16 / 9;
     width: 90%;
+    height: 90%;
     border-radius: 1rem;
     padding: 1rem;
 }
