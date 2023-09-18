@@ -40,4 +40,10 @@ export class Variable<T> {
 
         this.setOutOfDomain();
     }
+
+    setDomain(domain: Set<T>) {
+        this.domain = new Set(domain);
+
+        this.setOutOfDomain();
+    }
 }

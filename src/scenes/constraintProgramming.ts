@@ -2,9 +2,16 @@ import { setBackgroundColor, appendChild, appendChildren, newSlide } from "../co
 import { SudokuBoard } from "../wfc/sudokuBoard";
 import { html } from "../utils/html";
 
+const INITIAL_BOARD = [
+    [[], [], [], [1]],
+    [[4], [], [], []],
+    [[], [], [], []],
+    [[], [], [3], []],
+];
+
 export function* constraintProgramming(view: HTMLElement) {
     let slide = document.createElement("div");
-    let sudokuBoard = new SudokuBoard(view);
+    let sudokuBoard = new SudokuBoard(view, INITIAL_BOARD);
     let terminology = html(`<ul class="treminology"></ul>`);
 
     slide.appendChild(sudokuBoard.html);
@@ -12,16 +19,7 @@ export function* constraintProgramming(view: HTMLElement) {
 
     yield* newSlide(view, slide);
 
-    sudokuBoard.set([0, 3], 1);
-    sudokuBoard.set([2, 2], 3);
-
-    console.log(sudokuBoard);
-
     // variables
-    let variables = document.createElement("p");
-    variables.innerText = "variables";
-
-
     yield* appendChild(terminology, html(`<li><p class="fg-variable">Variables</p></li>`));
     yield* setBackgroundColor(sudokuBoard.get([0, 0]).getHtml(), "blue");
     yield* setBackgroundColor(sudokuBoard.get([0, 0]).getHtml(), "");
@@ -47,5 +45,4 @@ export function* constraintProgramming(view: HTMLElement) {
             html(`<li><p class="fg-constraint">Numbers 1-4 can only be used once in a 2x2 subdivision</p></li>`)
         ]
     );
-
 } 

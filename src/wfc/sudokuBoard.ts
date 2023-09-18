@@ -6,12 +6,22 @@ export class SudokuBoard {
     board: Array<Array<Variable<number>>>;
     html: HTMLElement;
 
-    constructor(view: HTMLElement) {
+    constructor(view: HTMLElement, boardDomains?: Array<Array<Array<number>>>) {
         this.view = view;
 
         this.board = createBoard(this.view);
 
         this.html = htmlTable(this.board.map(row => row.map(variable => variable.html)))
+
+        if (boardDomains != null) {
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 4; col++) {
+                    let domain = boardDomains[row][col];
+
+                    this.get([row, col]).setDomain(new Set(domain))
+                }
+            }
+        }
     }
 
     get(coord: [number, number]) {
