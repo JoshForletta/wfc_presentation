@@ -18,6 +18,10 @@ body {
     width: 100vw;
 }
 
+.out-of-domain {
+    color: red;
+}
+
 @import 'app.scss';
 @import 'slideshowView.scss';
 @import 'imageCard.scss';

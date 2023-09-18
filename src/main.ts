@@ -1,7 +1,8 @@
 import './styles/index.scss'
-import { toggleFullscreen } from './fullscreen';
-import { Slideshow } from './slideshow';
+import { toggleFullscreen } from './core/fullscreen';
+import { Slideshow } from './core/slideshow';
 import { introduction } from './scenes/introduction';
+import { constraintProgramming } from './scenes/constraintProgramming';
 
 const app = document.getElementById("app") as HTMLElement;
 app.classList.add("slideshowContainer");
@@ -11,7 +12,7 @@ slideshow_view.id = "slideshowView";
 
 app.appendChild(slideshow_view);
 
-let slideshow = new Slideshow(slideshow_view, [introduction]);
+let slideshow = new Slideshow(slideshow_view, [introduction, constraintProgramming]);
 
 window.onkeydown = (event) => {
     console.log(event.key);

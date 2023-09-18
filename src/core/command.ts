@@ -51,12 +51,56 @@ export class AppendChild implements Command {
     }
 }
 
+export class SetBackgroundColor implements Command {
+    view: HTMLElement;
+    previousColor: string;
+    color: string;
+
+    constructor(view: HTMLElement, color: string) {
+        this.view = view;
+        this.previousColor = "";
+        this.color = color;
+    }
+
+    apply(): void {
+        this.view.style.backgroundColor = this.color;
+    }
+
+    undo(): void {
+        this.view.style.backgroundColor = this.previousColor;
+    }
+}
+
+export class SetColor implements Command {
+    view: HTMLElement;
+    previousColor: string;
+    color: string;
+
+    constructor(view: HTMLElement, color: string) {
+        this.view = view;
+        this.previousColor = "";
+        this.color = color;
+    }
+
+    apply(): void {
+        this.view.style.color = this.color;
+    }
+
+    undo(): void {
+        this.view.style.color = this.previousColor;
+    }
+}
+
 export let newSlide = function*(view: HTMLElement, slide: HTMLElement, animations?: Scene) {
     yield new NewSlide(view, slide);
 
     if (animations != null) {
         yield* animations(slide);
     }
+}
+
+export let appendChild = function*(view: HTMLElement, child: HTMLElement) {
+    yield new AppendChild(view, child);
 }
 
 export let appendChildren = function*(view: HTMLElement, children: Array<HTMLElement>, animations?: Scene) {
@@ -67,4 +111,12 @@ export let appendChildren = function*(view: HTMLElement, children: Array<HTMLEle
             yield* animations(child);
         }
     }
+}
+
+export let setBackgroundColor = function*(view: HTMLElement, color: string) {
+    yield new SetBackgroundColor(view, color);
+}
+
+export let setColor = function*(view: HTMLElement, color: string) {
+    yield new SetColor(view, color);
 }

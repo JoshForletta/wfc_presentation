@@ -1,7 +1,7 @@
 import { assets } from "../assets";
-import { appendChildren, newSlide } from "../command";
-import { createImageCard } from "../imageCard";
-import { QuoteDetail, createQuoteCard } from "../quoteSlide";
+import { appendChildren, newSlide } from "../core/command";
+import { createImageCard } from "../core/imageCard";
+import { QuoteDetail, createQuoteCard } from "../core/quoteSlide";
 
 export let introduction = function*(view: HTMLElement) {
     yield* blankSlide(view);
