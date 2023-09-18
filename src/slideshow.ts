@@ -1,9 +1,11 @@
-export type Scene = () => Generator<HTMLElement>;
+import { Command } from "./command";
+
+export type Scene = (view: HTMLElement) => Generator<Command>;
 
 export class Slideshow {
     view: HTMLElement;
-    slides: Array<HTMLElement>;
-    currentSlideIndex: number;
+    commands: Array<Command>;
+    currentCommandIndex: number;
 
     constructor(view: HTMLElement, scenes: Array<Scene>) {
         if (scenes.length == 0) {
@@ -11,49 +13,45 @@ export class Slideshow {
         }
 
         this.view = view;
-        this.slides = Array();
-        this.currentSlideIndex = 0;
+        this.commands = Array();
+        this.currentCommandIndex = 0;
 
         for (let scene of scenes) {
-            for (let slide of scene()) {
-                this.slides.push(slide);
+            for (let command of scene(this.view)) {
+                this.commands.push(command)
             }
         }
 
-        this.setView(this.getCurrentSlide());
+        this.getCurrentCommand().apply();
     }
 
-    getNextSlide() {
-        if (this.currentSlideIndex == this.slides.length - 1) {
-            return null;
-        }
-
-        return this.slides[++this.currentSlideIndex];
+    getNextCommand() {
+        return this.commands[this.currentCommandIndex + 1];
     }
 
-    getPrevSlide() {
-        if (this.currentSlideIndex == 0) {
-            return null;
-        }
-
-        return this.slides[--this.currentSlideIndex];
-    }
-
-    getCurrentSlide() {
-        return this.slides[this.currentSlideIndex];
-    }
-
-    setView(slide: HTMLElement | null) {
-        if (slide != null) {
-            this.view.replaceChildren(slide);
-        }
+    getCurrentCommand() {
+        return this.commands[this.currentCommandIndex];
     }
 
     next() {
-        this.setView(this.getNextSlide());
+        let slide = this.getNextCommand();;
+
+        if (slide == null) {
+            return;
+        }
+
+        slide.apply();
+
+        this.currentCommandIndex++;
     }
 
     prev() {
-        this.setView(this.getPrevSlide());
+        if (this.currentCommandIndex == 0) {
+            return;
+        }
+
+        this.getCurrentCommand().undo();
+
+        this.currentCommandIndex--;
     }
 }

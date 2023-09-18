@@ -10,6 +10,18 @@ declare global {
     }
 }
 
+let fullscreen = false;
+
+export let toggleFullscreen = function(element: HTMLElement) {
+    if (!fullscreen) {
+        openFullscreen(element);
+        fullscreen = true;
+    } else {
+        closeFullscreen();
+        fullscreen = false;
+    }
+}
+
 export function openFullscreen(element: HTMLElement) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
