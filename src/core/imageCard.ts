@@ -1,3 +1,5 @@
+import { html } from "../utils/html";
+
 export type ImageDetail = {
     src: string;
     alt: string;
@@ -7,38 +9,32 @@ export type ImageDetail = {
 }
 
 export let createImageCard = function(imageDetail: ImageDetail) {
-    let imageCard = document.createElement("div");
-    imageCard.classList.add("image-card");
+    let imageCard = html(`
+        <div class="image-card">
+            <img src="${imageDetail.src}" alt="${imageDetail.alt}" class="image-card__image">
+        </div>
+    `);
 
-    imageCard.innerHTML = `
-        <img src="${imageDetail.src}" alt="${imageDetail.alt}" class="image-card__image">
-    `;
 
     if (imageDetail.credit != null) {
-        let credit = document.createElement("div");
-        credit.classList.add("image-card__credit");
+        let credit = html(`<div class="image-card__credit"></div>`);
 
         if (imageDetail.creditType != null) {
-            let creditType = document.createElement("span");
-
-            creditType.innerText = `${imageDetail.creditType}: `;
-
-            credit.appendChild(creditType);
+            credit.appendChild(html(`<span>${imageDetail.creditType}: </span>`))
         }
 
         credit.append(imageDetail.credit);
 
-        imageCard.appendChild(credit);
+        imageCard.appendChild(credit)
+
     }
 
     if (imageDetail.url != null) {
-        let url = document.createElement("a") as HTMLAnchorElement;
-        url.classList.add("image-card__url");
-        url.setAttribute("src", imageDetail.url);
-
-        url.innerText = imageDetail.url;
-
-        imageCard.appendChild(url);
+        imageCard.appendChild(html(`
+            <a class="image-card__url" src="${imageDetail.url}">
+                ${imageDetail.url}
+            </a>`
+        ));
     }
 
     return imageCard;
