@@ -1,7 +1,7 @@
 import './styles/index.scss'
-import badNorth from '../public/badNorth.jpeg';
-import townscaper from '../public/townscaper.png';
-import unicodeBoxDrawingWFC from '../public/unicodeBoxDrawingWFC.png';
+import badNorth from '../assets/badNorth.jpeg';
+import townscaper from '../assets/townscaper.png';
+import unicodeBoxDrawingWFC from '../assets/unicodeBoxDrawingWFC.png';
 
 export let assets = {
     images: {
