@@ -1,8 +1,21 @@
+import { assets } from "../assets";
 import { appendChildren, newSlide } from "../command";
+import { createImageCard } from "../imageCard";
+import { QuoteDetail, createQuoteCard } from "../quoteSlide";
 
 export let introduction = function*(view: HTMLElement) {
+    yield* blankSlide(view);
     yield* titleSlide(view);
+    yield* newSlide(view, createQuoteCard(assets.quotes.maximGumin as QuoteDetail));
+    yield* newSlide(view, createImageCard(assets.images.badNorth));
+    yield* newSlide(view, createImageCard(assets.images.townscaper));
+    yield* newSlide(view, createImageCard(assets.images.unicodeBoxDrawingWFC));
+    yield* newSlide(view, createQuoteCard(assets.quotes.borisTheBrave as QuoteDetail));
     yield* mainPoints(view);
+}
+
+let blankSlide = function*(view: HTMLElement) {
+    yield* newSlide(view, document.createElement("div"));
 }
 
 let titleSlide = function*(view: HTMLElement) {
@@ -18,7 +31,6 @@ let titleSlide = function*(view: HTMLElement) {
 
 let mainPoints = function*(view: HTMLElement) {
     let mainPoints = document.createElement("div");
-    mainPoints.innerHTML = "<p>Main Points</p>";
 
     let list = document.createElement("ul");
     mainPoints.appendChild(list);

@@ -32,6 +32,12 @@ export let assets = {
             author: "Maxim Gumin",
             date: "09/17/2023",
             dateType: "accessed",
+        },
+        borisTheBrave: {
+            quote: "Wave Function Collapse is a constraint problem with a twist…",
+            author: "Boris the Brave",
+            date: "2020",
+            dateType: "published",
         }
     }
 }
